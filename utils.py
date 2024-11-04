@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, Request
 from passlib.context import CryptContext
 from jose import JWTError, jwt
@@ -8,9 +10,11 @@ from crud import AsyncSession
 from crud import get_user_by_email
 from database import get_session_local
 
-SECRET_KEY = "your_secret_key" 
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")  # Получаем значение из окружения
+ALGORITHM = os.getenv("ALGORITHM", "HS256")  # Значение по умолчанию
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))  # Значение по умолчанию
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
