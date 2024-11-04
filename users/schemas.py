@@ -3,10 +3,6 @@ from pydantic import BaseModel
 class UserCreate(BaseModel):
     email: str
     password: str
-    
-class LoginRequestBody(BaseModel):
-    email: str
-    password: str
 
 class UserResponse(BaseModel):
     id: int
@@ -14,3 +10,7 @@ class UserResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+class LoginRequestBody(BaseModel):
+    email: str
+    password: str

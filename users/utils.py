@@ -6,8 +6,7 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from typing import Optional
 
-from crud import AsyncSession
-from crud import get_user_by_email
+from users.crud import AsyncSession
 from database import get_session_local
 
 load_dotenv()
@@ -56,6 +55,7 @@ async def get_current_user(
     except JWTError:
         raise credentials_exception
     
+    from users.crud import get_user_by_email
     user = await get_user_by_email(db, email)
     if user is None:
         raise credentials_exception
